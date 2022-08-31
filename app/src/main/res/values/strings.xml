@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BAC Demo</string>
+    <string name="Weight">Weight (lbs)</string>
+    <string name="Number">weight</string>
+    <string name="WeightInput">Enter weight</string>
+    <string name="Gender">Gender</string>
+    <string name="Female">Female</string>
+    <string name="Male">Male</string>
+    <string name="setWeight">Set Weight</string>
+    <string name="WeightOutput">Weight:</string>
+    <string name="alcohol">Alcohol %:</string>
+</resources>
