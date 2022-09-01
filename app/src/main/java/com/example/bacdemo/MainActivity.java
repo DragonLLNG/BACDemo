@@ -30,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-
                             EditText weightGender = findViewById(R.id.weightGender);
-                            weightGender.setText(weight.concat(genderSelect));
+                            weightGender.setText(weight);
                             weightInput.setText("");
 
                         }
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View view) {
 
                             EditText weightGender = findViewById(R.id.weightGender);
-                            weightGender.setText(weight.concat(genderSelect));
+                            weightGender.setText(weight);
                             weightInput.setText("");
 
                         }
