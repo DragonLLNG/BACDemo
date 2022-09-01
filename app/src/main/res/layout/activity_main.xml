@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/weightInputDisplay"
+        android:id="@+id/weighTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Weight"
@@ -31,104 +31,158 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toEndOf="@+id/weightInputDisplay"
+        app:layout_constraintStart_toEndOf="@+id/weighTextView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
 
     <TextView
-        android:id="@+id/gender"
+        android:id="@+id/genderTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="608dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/Gender"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/weightTextview2"
+        app:layout_constraintEnd_toStartOf="@id/radioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weighTextView" />
 
     <Button
         android:id="@+id/setWeight"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="408dp"
         android:text="@string/setWeight"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/weightGender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightInput"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.535" />
 
     <TextView
-        android:id="@+id/weightOutputDisplay"
+        android:id="@+id/weightTextview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="19dp"
         android:text="@string/WeightOutput"
-        app:layout_constraintBottom_toTopOf="@+id/alcohol"
+        app:layout_constraintBottom_toTopOf="@+id/drinkSizeTextview"
         app:layout_constraintEnd_toStartOf="@+id/weightGender"
-        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintHorizontal_bias="0.169"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintTop_toBottomOf="@+id/genderTextview"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/weightGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
+        android:layout_marginEnd="60dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:text="@string/weightGender"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setWeight"
-        app:layout_constraintVertical_bias="0.413"
+        app:layout_constraintVertical_bias="0.174"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/alcohol"
+        android:id="@+id/alcoholTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="44dp"
         android:text="@string/alcohol"
         app:layout_constraintEnd_toStartOf="@+id/seekBar2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightGender" />
+        app:layout_constraintTop_toBottomOf="@+id/drinkSizeTextview" />
 
     <SeekBar
         android:id="@+id/seekBar2"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="396dp"
+        android:layout_marginBottom="288dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toEndOf="@+id/alcohol" />
+        app:layout_constraintStart_toEndOf="@+id/alcoholTextview" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/setWeight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gender"
+        app:layout_constraintStart_toEndOf="@+id/genderTextview"
         app:layout_constraintTop_toBottomOf="@+id/weightInput">
 
         <RadioButton
             android:id="@+id/female"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/Female" />
 
         <RadioButton
             android:id="@+id/male"
-            android:layout_width="match_parent"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/Male" />
 
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/drinkSizeTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="36dp"
+        android:text="@string/drinkSize"
+        app:layout_constraintBottom_toTopOf="@+id/alcoholTextview"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weightTextview2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drinkSizeTextview"
+        app:layout_constraintTop_toBottomOf="@+id/weightGender">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/oneoz" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fiveoz" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/twelveoz" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

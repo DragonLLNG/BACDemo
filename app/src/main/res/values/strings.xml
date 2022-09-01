@@ -9,4 +9,10 @@
     <string name="setWeight">Set Weight</string>
     <string name="WeightOutput">Weight:</string>
     <string name="alcohol">Alcohol %:</string>
+    <string name="drinkSize">Drink Size:</string>
+    <string name="oneoz">1 oz</string>
+    <string name="twooz">2 oz</string>
+    <string name="fiveoz">5 oz</string>
+    <string name="twelveoz">12 oz</string>
+    <string name="weightGender">Weight and Gender</string>
 </resources>
