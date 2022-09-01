@@ -10,9 +10,11 @@
         android:id="@+id/bacLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
         android:text="BAC Level: "
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="613dp" />
+        app:layout_constraintBottom_toTopOf="@+id/status"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/weighTextView"
@@ -21,10 +23,10 @@
         android:text="@string/Weight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <EditText
         android:id="@+id/weightInput"
@@ -38,16 +40,16 @@
         android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.358"
+        app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toEndOf="@+id/weighTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <TextView
         android:id="@+id/genderTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="60dp"
         android:text="@string/Gender"
         app:layout_constraintBottom_toTopOf="@id/weightTextview2"
@@ -197,13 +199,14 @@
         android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="@string/reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addDrink"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alcoholTextview"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.046" />
 
     <Button
         android:id="@+id/addDrink"
@@ -216,48 +219,55 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar2"
         app:layout_constraintVertical_bias="0.037" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="0"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="545dp" />
-
     <TextView
         android:id="@+id/drinkLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:text="# Drinks"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="556dp" />
-
-    <EditText
-        android:id="@+id/bacResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="0.000"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="597dp" />
+        app:layout_constraintBottom_toTopOf="@+id/bacLevel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reset" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="Your Status:"
-        tools:layout_editor_absoluteX="73dp"
-        tools:layout_editor_absoluteY="661dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/statusLvl"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/statusLvl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
         android:text="Filler"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="658dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/drinkOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/bacOUT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drinkLabel"
+        app:layout_constraintTop_toBottomOf="@+id/addDrink" />
+
+    <TextView
+        android:id="@+id/bacOUT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="0.000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bacLevel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
