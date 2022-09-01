@@ -15,4 +15,6 @@
     <string name="fiveoz">5 oz</string>
     <string name="twelveoz">12 oz</string>
     <string name="weightGender">Weight and Gender</string>
+    <string name="reset">Reset</string>
+    <string name="addDrink">Add Drink</string>
 </resources>
