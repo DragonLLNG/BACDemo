@@ -29,13 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
     double bacLevel = 0.0;
     double genderRate = 0.0;
-    double consume=0.0;
+
+    String weight="";
 
     final double BAC_INDEX = 5.14;
 
     ArrayList<Integer> drinkList = new ArrayList<Integer>();
     ArrayList<Double> alcoholPercentage = new ArrayList<Double>();
-    double[] w = new double[1];
+    double w = 0.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 weightIn = findViewById(R.id.weightInput);
-                String weight = weightIn.getText().toString()+"lbs";
-                w[0] = Double.parseDouble(weight);
+                weight = weightIn.getText().toString();
+
 
                 TextView weightGender = findViewById(R.id.weightGender);
-                weightGender.setText(weight.concat(genderReturn));
+                weightGender.setText(weight+"lbs".concat(genderReturn));
                 weightIn.getText().clear();
                 weightIn.setHint("");
 
@@ -71,13 +72,18 @@ public class MainActivity extends AppCompatActivity {
                 drink.setText("0");
 
                 TextView bac = findViewById(R.id.bacOUT);
+                drinkList.clear();
                 bac.setText("0.0000");
+
+                alcoholPercentage.clear();
 
                 SeekBar alcohol = findViewById(R.id.seekBar2);
                 alcohol.setProgress(0);
 
                 TextView status = findViewById(R.id.statusLvl);
                 status.setText("You are Safe");
+
+
 
 
             }
@@ -133,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             //BAC Calculation
             int checked = gender.getCheckedRadioButtonId();
+            double consume=0.0;
 
             if(checked==R.id.female){
                 genderRate = 0.66;
@@ -143,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i=0; i<drinkList.size();i++) {
                     consume += drinkList.get(i) * alcoholPercentage.get(i) / 100;
                 }
-            bacLevel = consume*BAC_INDEX/(w[0] * genderRate);
+            bacLevel = consume*BAC_INDEX/(Double.parseDouble(weight) * genderRate);
 
 
             TextView bac = findViewById(R.id.bacOUT);
