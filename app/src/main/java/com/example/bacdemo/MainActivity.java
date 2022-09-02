@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     Button addDrink, reset, setInput;
     EditText weightIn;
-    TextView weightGender, status;
+    TextView weightGender, status, numberDrinks, bac, drink, percentage;
     RadioGroup gender, drinkSize;
     SeekBar alcohol;
+    Resources res;
+    String genderReturn = "";
 
     double bacLevel = 0.0;
     double genderRate = 0.0;
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Integer> drinkList = new ArrayList<Integer>();
     ArrayList<Double> alcoholPercentage = new ArrayList<Double>();
-    double w = 0.0;
 
 
     @Override
@@ -49,16 +50,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Resources res = getResources();
-        int color3 = res.getColor(green);
+        res = getResources();
 
         gender = findViewById(R.id.radioGroup);
 
         setInput = findViewById(R.id.setWeight);
         setInput.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
+
+
                 String genderReturn="";
                 int checked = gender.getCheckedRadioButtonId();
                 if(checked==R.id.female){
@@ -72,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 weightIn = findViewById(R.id.weightInput);
                 weight = weightIn.getText().toString();
 
+                /*
+
+                if((weight.isEmpty())||(gender.getCheckedRadioButtonId()==-1)){
+                    Toast toast2 = Toast.makeText(MainActivity.this,"Set weight and gender first.",Toast.LENGTH_LONG);
+                    toast2.setGravity(Gravity.CENTER, 0, 0);
+                    toast2.show();
+                }
+
+                 */
 
                 weightGender = findViewById(R.id.weightGender);
                 weightGender.setText(weight + "lbs".concat(genderReturn));
@@ -79,10 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 weightIn.getText().clear();
                 weightIn.setHint("");
 
-                TextView drink = findViewById(R.id.drinkOut);
+                drink = findViewById(R.id.drinkOut);
                 drink.setText("0");
-
-                TextView bac = findViewById(R.id.bacOUT);
+                bac = findViewById(R.id.bacOUT);
                 drinkList.clear();
                 bac.setText("0.0000");
 
@@ -93,9 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
                 status = findViewById(R.id.statusLvl);
                 status.setText("You're Safe");
-                status.setBackgroundColor(color3);
-
-
+                status.setBackgroundColor(res.getColor(green));
 
 
 
@@ -104,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         drinkSize = findViewById(R.id.radioGroup2);
+        percentage = findViewById(R.id.percent);
 
-        TextView percentage = findViewById(R.id.percent);
-
+        //Alcohol seekbar
         alcohol = findViewById(R.id.seekBar2);
         alcohol.setMax(30);
         alcohol.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -126,81 +133,107 @@ public class MainActivity extends AppCompatActivity {
 
     //if(setInput.isClickable()){
 
-
     addDrink.setOnClickListener(new View.OnClickListener() {
 
-        @SuppressLint("ResourceAsColor")
-        @Override
-        public void onClick(View view) {
-            int numDrink = drinkSize.getCheckedRadioButtonId();
-            if(numDrink == R.id.oneOz){
-                drinkList.add(1);
-            }
-            else if(numDrink == R.id.fiveOz){
-                drinkList.add(5);
-            }
-            else {
-                drinkList.add(12);
-            }
+            @Override
 
-            alcoholPercentage.add((double) alcohol.getProgress());
+            public void onClick(View view) {
 
-            TextView numberDrinks = findViewById(R.id.drinkOut);
-            numberDrinks.setText(String.valueOf(drinkList.size()));
-
-
-            //BAC Calculation
-            int checked = gender.getCheckedRadioButtonId();
-            double consume=0.0;
-
-            if(checked==R.id.female){
-                genderRate = 0.66;
-            }
-            else {
-                genderRate = 0.73;
-            }
-                for (int i=0; i<drinkList.size();i++) {
-                    consume += drinkList.get(i) * alcoholPercentage.get(i) / 100;
+                /*int checked = gender.getCheckedRadioButtonId();
+                if (checked == R.id.female) {
+                    genderReturn = " (Female)";
+                    genderRate = 0.66;
+                } else if (checked == R.id.male) {
+                    genderReturn = " (Male)";
+                    genderRate = 0.73;
                 }
-            bacLevel = consume*BAC_INDEX/(Double.parseDouble(weight) * genderRate);
+
+                 */
 
 
-            TextView bac = findViewById(R.id.bacOUT);
-            bac.setText(String.format("%.3f",bacLevel));
+               // weightIn = findViewById(R.id.weightInput);
+               // weight = weightIn.getText().toString();
 
-            TextView status = findViewById(R.id.statusLvl);
+                if ((weight.isEmpty()) || (gender.getCheckedRadioButtonId() == -1)) {
+                    Toast toast2 = Toast.makeText(MainActivity.this, "Set weight and gender first.", Toast.LENGTH_SHORT);
+                    toast2.setGravity(Gravity.CENTER, 0, 0);
+                    toast2.show();
+                }
+                try {
+
+                    int numDrink = drinkSize.getCheckedRadioButtonId();
+                    if (numDrink == R.id.oneOz) {
+                        drinkList.add(1);
+                    } else if (numDrink == R.id.fiveOz) {
+                        drinkList.add(5);
+                    } else {
+                        drinkList.add(12);
+                    }
+
+                    alcoholPercentage.add((double) alcohol.getProgress());
+
+                    numberDrinks = findViewById(R.id.drinkOut);
+                    numberDrinks.setText(String.valueOf(drinkList.size()));
 
 
-            Resources res = getResources();
-            int color1 = res.getColor(red);
-            int color2 = res.getColor(orange);
-            int color3 = res.getColor(green);
 
-            if (bacLevel >=0.25){
-                addDrink.setEnabled(false);
-                status.setText("Over the limit!");
-                status.setBackgroundColor(color1);
-                Toast toast = Toast.makeText(MainActivity.this,"No more drinks for you.",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                    int gchecked = gender.getCheckedRadioButtonId();
+                    double consume = 0.0;
 
+                    if (gchecked == R.id.female) {
+                        genderRate = 0.66;
+                    } else {
+                        genderRate = 0.73;
+                    }
+
+
+                    //BAC Calculation
+                    //double consume = 0.0;
+                    for (int i = 0; i < drinkList.size(); i++) {
+                        consume += drinkList.get(i) * alcoholPercentage.get(i) / 100;
+                    }
+                    bacLevel = consume * BAC_INDEX / (Double.parseDouble(weight) * genderRate);
+
+
+                    bac = findViewById(R.id.bacOUT);
+                    bac.setText(String.format("%.3f", bacLevel));
+
+                    status = findViewById(R.id.statusLvl);
+
+
+                    res = getResources();
+                    int color1 = res.getColor(red);
+                    int color2 = res.getColor(orange);
+                    int color3 = res.getColor(green);
+
+                    if (bacLevel >= 0.25) {
+                        addDrink.setEnabled(false);
+                        status.setText("Over the limit!");
+                        status.setBackgroundColor(color1);
+                        Toast toast = Toast.makeText(MainActivity.this, "No more drinks for you.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if (bacLevel > 0.2) {
+                        status.setText("Over the limit!");
+                        status.setBackgroundColor(color1);
+                    } else if (bacLevel > 0.08) {
+                        status.setText("Be careful.");
+                        status.setBackgroundColor(color2);
+                    } else {
+                        status.setText("You're safe");
+                        status.setBackgroundColor(color3);
+                    }
+
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                }
             }
-            else if(bacLevel > 0.2){
-                status.setText("Over the limit!");
-                status.setBackgroundColor(color1);
-            }
-            else if (bacLevel > 0.08){
-                status.setText("Be careful.");
-                status.setBackgroundColor(color2);
-            }
-            else {
-                status.setText("You're safe");
-                status.setBackgroundColor(color3);
-            }
 
-            }
+        });
 
-    });
 
     //}
     /*
@@ -208,33 +241,31 @@ public class MainActivity extends AppCompatActivity {
         Toast toast2 = Toast.makeText(MainActivity.this,"Set weight and gender first.",Toast.LENGTH_LONG);
         toast2.setGravity(Gravity.CENTER, 0, 0);
         toast2.show();
-    }
-
+    }150
      */
 
     reset = findViewById(R.id.reset);
     reset.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            TextView numberDrinks = findViewById(R.id.drinkOut);
+            //TextView numberDrinks = findViewById(R.id.drinkOut);
             drinkList.clear();
             alcoholPercentage.clear();
             numberDrinks.setText("0");
-            TextView bac = findViewById(R.id.bacOUT);
+            //TextView bac = findViewById(R.id.bacOUT);
             bac.setText("0.0000");
             addDrink.setEnabled(true);
             weightGender.setText("");
             alcohol.setProgress(0);
             drinkSize.check(R.id.oneOz);
+            gender.check(R.id.female);
             status = findViewById(R.id.statusLvl);
             status.setText("You're Safe");
-            status.setBackgroundColor(color3);
+            status.setBackgroundColor(res.getColor(green));
             weightIn.setHint("Enter weight");
 
         }
     });
 
     }
-
-
 }
