@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-                            EditText weightGender = findViewById(R.id.weightGender);
-                            weightGender.setText(weight);
+                            TextView weightGender = findViewById(R.id.weightGender);
+                            weightGender.setText(weight.concat(genderSelect));
                             weightInput.setText("");
 
                         }
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-                            EditText weightGender = findViewById(R.id.weightGender);
-                            weightGender.setText(weight);
+                            TextView weightGender = findViewById(R.id.weightGender);
+                            weightGender.setText(weight.concat(genderSelect));
                             weightInput.setText("");
 
                         }

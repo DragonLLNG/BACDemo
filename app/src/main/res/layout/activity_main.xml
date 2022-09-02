@@ -10,19 +10,20 @@
         android:id="@+id/bacLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
         android:text="BAC Level: "
+
         app:layout_constraintBottom_toTopOf="@+id/status"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/bacOUT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drinkLabel" />
 
     <TextView
         android:id="@+id/weighTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Weight"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/genderTextview"
+        app:layout_constraintEnd_toStartOf="@id/weightInput"
         app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +31,6 @@
 
     <EditText
         android:id="@+id/weightInput"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:ems="10"
@@ -38,7 +38,7 @@
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toEndOf="@+id/weighTextView"
@@ -49,8 +49,7 @@
         android:id="@+id/genderTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/Gender"
         app:layout_constraintBottom_toTopOf="@id/weightTextview2"
         app:layout_constraintEnd_toStartOf="@id/radioGroup"
@@ -63,65 +62,43 @@
         android:layout_height="wrap_content"
         android:text="@string/setWeight"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@id/weightGender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintBottom_toTopOf="@id/weightGender"/>
 
     <TextView
         android:id="@+id/weightTextview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/WeightOutput"
         app:layout_constraintBottom_toTopOf="@+id/drinkSizeTextview"
-        app:layout_constraintEnd_toStartOf="@+id/weightGender"
-        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintEnd_toStartOf="@id/weightGender"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genderTextview"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/weightGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="@string/weightGender"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setWeight"
-        app:layout_constraintVertical_bias="0.174"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/genderTextview" />
 
     <TextView
         android:id="@+id/alcoholTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="44dp"
         android:text="@string/alcohol"
         app:layout_constraintEnd_toStartOf="@+id/seekBar2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drinkSizeTextview" />
+        app:layout_constraintTop_toBottomOf="@+id/drinkSizeTextview"
+        app:layout_constraintBottom_toTopOf="@id/reset"/>
 
     <SeekBar
         android:id="@+id/seekBar2"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="288dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/addDrink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toEndOf="@+id/alcoholTextview" />
+        app:layout_constraintStart_toEndOf="@+id/alcoholTextview"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup2" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -151,9 +128,6 @@
         android:id="@+id/drinkSizeTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="36dp"
         android:text="@string/drinkSize"
         app:layout_constraintBottom_toTopOf="@+id/alcoholTextview"
         app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
@@ -167,9 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -201,7 +173,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="@string/reset"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/drinkLabel"
         app:layout_constraintEnd_toStartOf="@+id/addDrink"
         app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
@@ -212,10 +184,11 @@
         android:id="@+id/addDrink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
         android:text="@string/addDrink"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintBottom_toTopOf="@id/drinkOut"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/reset"
         app:layout_constraintTop_toBottomOf="@+id/seekBar2"
         app:layout_constraintVertical_bias="0.037" />
 
@@ -223,9 +196,9 @@
         android:id="@+id/drinkLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:text="# Drinks"
         app:layout_constraintBottom_toTopOf="@+id/bacLevel"
+        app:layout_constraintEnd_toStartOf="@id/drinkOut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reset" />
 
@@ -233,22 +206,22 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
         android:text="Your Status:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/statusLvl"
         app:layout_constraintHorizontal_bias="0.179"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bacLevel" />
 
     <TextView
         android:id="@+id/statusLvl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="44dp"
         android:text="Filler"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/status"
+        app:layout_constraintTop_toBottomOf="@id/bacOUT" />
 
     <TextView
         android:id="@+id/drinkOut"
@@ -264,11 +237,21 @@
         android:id="@+id/bacOUT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="100dp"
         android:text="0.000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/statusLvl"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bacLevel" />
+        app:layout_constraintStart_toEndOf="@+id/bacLevel"
+        app:layout_constraintTop_toBottomOf="@id/drinkOut" />
+
+    <TextView
+        android:id="@+id/weightGender"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/radioGroup2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toEndOf="@id/weightTextview2"
+        app:layout_constraintTop_toBottomOf="@id/setWeight"
+        app:layout_constraintVertical_bias="0.337" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
