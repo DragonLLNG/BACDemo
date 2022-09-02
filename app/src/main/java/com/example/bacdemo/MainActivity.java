@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -135,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (bacLevel >=0.25){
                 addDrink.setEnabled(false);
+                Toast toast = Toast.makeText(MainActivity.this,"No more drinks for you.",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
 
             }
             else if(bacLevel > 0.2){
@@ -162,6 +167,11 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             TextView numberDrinks = findViewById(R.id.drinkOut);
             numberDrinks.setText("0");
+            TextView bac = findViewById(R.id.bacOUT);
+            bac.setText("0.0000");
+            addDrink.setEnabled(true);
+
+
 
         }
     });
