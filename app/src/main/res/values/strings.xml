@@ -17,4 +17,5 @@
     <string name="weightGender">Weight and Gender</string>
     <string name="reset">Reset</string>
     <string name="addDrink">Add Drink</string>
+    <string name="zero">0</string>
 </resources>

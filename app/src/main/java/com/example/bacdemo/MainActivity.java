@@ -1,5 +1,8 @@
 package com.example.bacdemo;
 
+import static com.example.bacdemo.R.color.orange;
+import static com.example.bacdemo.R.color.red;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -26,18 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //ArrayList<String> genderChoice = new ArrayList<String>();
 
         RadioGroup gender = findViewById(R.id.radioGroup);
-        /*gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup radioGroup, int checked) {
-                if(checked==R.id.female){
-                    genderChoice.add("(Female)");
-                }
-                else if (checked==R.id.male){
-                    genderChoice.add("(Male)");
-                }
-            }
-        });
 
-         */
         findViewById(R.id.setWeight).setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -72,23 +65,110 @@ public class MainActivity extends AppCompatActivity {
         });
 
         RadioGroup drinkSize = findViewById(R.id.radioGroup2);
-        drinkSize.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checked) {
-                if (checked == R.id.oneOz) {
-                    getSize(1);
-                } else if (checked == R.id.fiveOz) {
-                    getSize(5);
-                }
-                else if (checked == R.id.twelveOz){
-                    getSize(12);
 
-                }
+        TextView percentage = findViewById(R.id.percent);
+        SeekBar alcohol = findViewById(R.id.seekBar2);
+        alcohol.setMax(30);
+        alcohol.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                percentage.setText(i+"%");
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
 
+    ArrayList<Integer> drinkList = new ArrayList<Integer>();
+    ArrayList<Double> AlcoholPercentage = new ArrayList<Double>();
+
+    Button addDrink = findViewById(R.id.addDrink);
+
+    addDrink.setOnClickListener(new View.OnClickListener() {
+
+        @SuppressLint("ResourceAsColor")
+        @Override
+        public void onClick(View view) {
+            int numDrink = drinkSize.getCheckedRadioButtonId();
+            if(numDrink == R.id.oneOz){
+                drinkList.add(1);
+            }
+            else if(numDrink == R.id.fiveOz){
+                drinkList.add(5);
+            }
+            else {
+                drinkList.add(12);
+            }
+
+            AlcoholPercentage.add((double) alcohol.getProgress());
+
+            TextView numberDrinks = findViewById(R.id.drinkOut);
+            numberDrinks.setText(String.valueOf(drinkList.size()));
+
+
+            //Double weightNum = Double.parseDouble(weight);
+
+            double bacLevel = 0.0;
+
+            int checked = gender.getCheckedRadioButtonId();
+            if(checked==R.id.female){
+                for(int i:drinkList){
+                    for (double j:AlcoholPercentage){
+                        bacLevel = (i*j/100*5.14)/(50* 0.66);
+                    }
+                }
+            }
+            else if (checked==R.id.male){
+                for(Integer i:drinkList){
+                    for (Double j:AlcoholPercentage){
+                        bacLevel += (i*j/100*5.14)/(60* 0.73);
+                    }
+                }
+            }
+            TextView bac = findViewById(R.id.bacOUT);
+            bac.setText(String.format("%.4f",bacLevel));
+
+            TextView status = findViewById(R.id.statusLvl);
+
+            if (bacLevel >=0.25){
+                addDrink.setEnabled(false);
+
+            }
+            else if(bacLevel > 0.2){
+                status.setText("Over the limit!");
+                status.setBackgroundColor(R.color.red);
+            }
+            else if (bacLevel > 0.08){
+                status.setText("Be careful.");
+                status.setBackgroundColor(R.color.orange);
+            }
+            else {
+                status.setText("You're safe");
+                status.setBackgroundColor(R.color.green);
+            }
+
+            }
+
+
+
+    });
+
+    Button reset = findViewById(R.id.reset);
+    reset.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            TextView numberDrinks = findViewById(R.id.drinkOut);
+            numberDrinks.setText("0");
+
+        }
+    });
+
     }
-    private void getSize (int drinkSelect){
-        size = drinkSelect;
-    }
+
+
+
+
 }
