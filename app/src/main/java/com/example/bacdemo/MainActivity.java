@@ -1,11 +1,15 @@
 package com.example.bacdemo;
 
+import static com.example.bacdemo.R.color.green;
 import static com.example.bacdemo.R.color.orange;
 import static com.example.bacdemo.R.color.red;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -22,8 +26,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button addDrink, reset;
+    Button addDrink, reset, setInput;
     EditText weightIn;
+    TextView weightGender, status;
     RadioGroup gender, drinkSize;
     SeekBar alcohol;
 
@@ -37,15 +42,20 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> drinkList = new ArrayList<Integer>();
     ArrayList<Double> alcoholPercentage = new ArrayList<Double>();
     double w = 0.0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Resources res = getResources();
+        int color3 = res.getColor(green);
 
         gender = findViewById(R.id.radioGroup);
 
-        findViewById(R.id.setWeight).setOnClickListener(new View.OnClickListener() {
+        setInput = findViewById(R.id.setWeight);
+        setInput.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
@@ -63,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 weight = weightIn.getText().toString();
 
 
-                TextView weightGender = findViewById(R.id.weightGender);
-                weightGender.setText(weight+"lbs".concat(genderReturn));
+                weightGender = findViewById(R.id.weightGender);
+                weightGender.setText(weight + "lbs".concat(genderReturn));
+
                 weightIn.getText().clear();
                 weightIn.setHint("");
 
@@ -77,17 +88,20 @@ public class MainActivity extends AppCompatActivity {
 
                 alcoholPercentage.clear();
 
-                SeekBar alcohol = findViewById(R.id.seekBar2);
+                alcohol = findViewById(R.id.seekBar2);
                 alcohol.setProgress(0);
 
-                TextView status = findViewById(R.id.statusLvl);
-                status.setText("You are Safe");
+                status = findViewById(R.id.statusLvl);
+                status.setText("You're Safe");
+                status.setBackgroundColor(color3);
+
 
 
 
 
             }
         });
+
 
         drinkSize = findViewById(R.id.radioGroup2);
 
@@ -108,9 +122,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     addDrink = findViewById(R.id.addDrink);
+
+    //if(setInput.isClickable()){
+
 
     addDrink.setOnClickListener(new View.OnClickListener() {
 
@@ -134,9 +149,6 @@ public class MainActivity extends AppCompatActivity {
             numberDrinks.setText(String.valueOf(drinkList.size()));
 
 
-
-            //Double weightNum = Double.parseDouble(weight);
-
             //BAC Calculation
             int checked = gender.getCheckedRadioButtonId();
             double consume=0.0;
@@ -158,8 +170,16 @@ public class MainActivity extends AppCompatActivity {
 
             TextView status = findViewById(R.id.statusLvl);
 
+
+            Resources res = getResources();
+            int color1 = res.getColor(red);
+            int color2 = res.getColor(orange);
+            int color3 = res.getColor(green);
+
             if (bacLevel >=0.25){
                 addDrink.setEnabled(false);
+                status.setText("Over the limit!");
+                status.setBackgroundColor(color1);
                 Toast toast = Toast.makeText(MainActivity.this,"No more drinks for you.",Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
@@ -167,20 +187,30 @@ public class MainActivity extends AppCompatActivity {
             }
             else if(bacLevel > 0.2){
                 status.setText("Over the limit!");
-                status.setBackgroundColor(R.color.red);
+                status.setBackgroundColor(color1);
             }
             else if (bacLevel > 0.08){
                 status.setText("Be careful.");
-                status.setBackgroundColor(R.color.orange);
+                status.setBackgroundColor(color2);
             }
             else {
                 status.setText("You're safe");
-                status.setBackgroundColor(R.color.green);
+                status.setBackgroundColor(color3);
             }
 
             }
 
     });
+
+    //}
+    /*
+    else{
+        Toast toast2 = Toast.makeText(MainActivity.this,"Set weight and gender first.",Toast.LENGTH_LONG);
+        toast2.setGravity(Gravity.CENTER, 0, 0);
+        toast2.show();
+    }
+
+     */
 
     reset = findViewById(R.id.reset);
     reset.setOnClickListener(new View.OnClickListener() {
@@ -193,13 +223,18 @@ public class MainActivity extends AppCompatActivity {
             TextView bac = findViewById(R.id.bacOUT);
             bac.setText("0.0000");
             addDrink.setEnabled(true);
+            weightGender.setText("");
+            alcohol.setProgress(0);
+            drinkSize.check(R.id.oneOz);
+            status = findViewById(R.id.statusLvl);
+            status.setText("You're Safe");
+            status.setBackgroundColor(color3);
+            weightIn.setHint("Enter weight");
 
         }
     });
 
     }
-
-
 
 
 }
