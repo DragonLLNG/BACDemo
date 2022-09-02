@@ -260,6 +260,7 @@
         android:id="@+id/weightGender"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@id/radioGroup2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"

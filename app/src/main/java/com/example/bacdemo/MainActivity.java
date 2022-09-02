@@ -28,11 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //ArrayList<String> genderChoice = new ArrayList<String>();
-
         RadioGroup gender = findViewById(R.id.radioGroup);
-
         findViewById(R.id.setWeight).setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -47,17 +43,22 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 EditText weightInput = findViewById(R.id.weightInput);
+
                 String weight = weightInput.getText().toString()+"lbs";
 
                 TextView weightGender = findViewById(R.id.weightGender);
                 weightGender.setText(weight.concat(genderReturn));
-                weightInput.setText("");
+                weightInput.getText().clear();
+                weightInput.setHint("");
 
                 TextView drink = findViewById(R.id.drinkOut);
-                drink.setText("");
+                drink.setText("0");
 
                 TextView bac = findViewById(R.id.bacOUT);
-                bac.setText("");
+                bac.setText("0.0000");
+
+                SeekBar alcohol = findViewById(R.id.seekBar2);
+                alcohol.setProgress(0);
 
                 TextView status = findViewById(R.id.statusLvl);
                 status.setText("You are Safe");
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         RadioGroup drinkSize = findViewById(R.id.radioGroup2);
 
         TextView percentage = findViewById(R.id.percent);
+
         SeekBar alcohol = findViewById(R.id.seekBar2);
         alcohol.setMax(30);
         alcohol.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             TextView bac = findViewById(R.id.bacOUT);
-            bac.setText(String.format("%.4f",bacLevel));
+            bac.setText(String.format("%.3f",bacLevel));
 
             TextView status = findViewById(R.id.statusLvl);
 
@@ -157,8 +159,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-
-
     });
 
     Button reset = findViewById(R.id.reset);
@@ -170,8 +170,6 @@ public class MainActivity extends AppCompatActivity {
             TextView bac = findViewById(R.id.bacOUT);
             bac.setText("0.0000");
             addDrink.setEnabled(true);
-
-
 
         }
     });
