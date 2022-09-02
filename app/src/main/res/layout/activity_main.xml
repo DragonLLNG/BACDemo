@@ -65,13 +65,14 @@
         android:id="@+id/setWeight"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="@string/setWeight"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@id/weightGender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintBottom_toTopOf="@id/weightGender"/>
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <TextView
         android:id="@+id/weightTextview2"
@@ -97,7 +98,7 @@
 
     <SeekBar
         android:id="@+id/seekBar2"
-        android:layout_width="250dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/addDrink"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,19 +156,19 @@
         app:layout_constraintTop_toBottomOf="@+id/weightGender">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/oneOz"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/oneoz" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/fiveOz"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/fiveoz" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/twelveOz"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/twelveoz" />
@@ -202,7 +203,7 @@
         android:id="@+id/drinkLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="# Drinks"
+        android:text="# Drinks: "
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toTopOf="@+id/bacLevel"
         app:layout_constraintEnd_toStartOf="@id/drinkOut"
@@ -225,6 +226,9 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Filler"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:background="#2C652C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/status"
@@ -262,5 +266,16 @@
         app:layout_constraintStart_toEndOf="@id/weightTextview2"
         app:layout_constraintTop_toBottomOf="@id/setWeight"
         app:layout_constraintVertical_bias="0.337" />
+
+    <TextView
+        android:id="@+id/percent"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        app:layout_constraintBottom_toTopOf="@id/addDrink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/seekBar2"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
