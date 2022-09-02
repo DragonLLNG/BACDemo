@@ -22,13 +22,24 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    int size=0;
+    Button addDrink, reset;
+    EditText weightIn;
+    RadioGroup gender, drinkSize;
+    SeekBar alcohol;
+
+    double bacLevel = 0.0;
+    double rate = 0.0;
+
+    ArrayList<Integer> drinkList = new ArrayList<Integer>();
+    ArrayList<Double> alcoholPercentage = new ArrayList<Double>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RadioGroup gender = findViewById(R.id.radioGroup);
+
+        gender = findViewById(R.id.radioGroup);
+
         findViewById(R.id.setWeight).setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -42,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
                    genderReturn=" (Male)";
                 }
 
-                EditText weightInput = findViewById(R.id.weightInput);
 
-                String weight = weightInput.getText().toString()+"lbs";
+                weightIn = findViewById(R.id.weightInput);
+                String weight = weightIn.getText().toString()+"lbs";
 
                 TextView weightGender = findViewById(R.id.weightGender);
                 weightGender.setText(weight.concat(genderReturn));
-                weightInput.getText().clear();
-                weightInput.setHint("");
+                weightIn.getText().clear();
+                weightIn.setHint("");
 
                 TextView drink = findViewById(R.id.drinkOut);
                 drink.setText("0");
@@ -67,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RadioGroup drinkSize = findViewById(R.id.radioGroup2);
+        drinkSize = findViewById(R.id.radioGroup2);
 
         TextView percentage = findViewById(R.id.percent);
 
-        SeekBar alcohol = findViewById(R.id.seekBar2);
+        alcohol = findViewById(R.id.seekBar2);
         alcohol.setMax(30);
         alcohol.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -86,10 +97,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    ArrayList<Integer> drinkList = new ArrayList<Integer>();
-    ArrayList<Double> AlcoholPercentage = new ArrayList<Double>();
 
-    Button addDrink = findViewById(R.id.addDrink);
+
+    addDrink = findViewById(R.id.addDrink);
 
     addDrink.setOnClickListener(new View.OnClickListener() {
 
@@ -107,31 +117,30 @@ public class MainActivity extends AppCompatActivity {
                 drinkList.add(12);
             }
 
-            AlcoholPercentage.add((double) alcohol.getProgress());
+            alcoholPercentage.add((double) alcohol.getProgress());
 
             TextView numberDrinks = findViewById(R.id.drinkOut);
             numberDrinks.setText(String.valueOf(drinkList.size()));
 
 
+
             //Double weightNum = Double.parseDouble(weight);
 
-            double bacLevel = 0.0;
-
             int checked = gender.getCheckedRadioButtonId();
+
             if(checked==R.id.female){
-                for(int i:drinkList){
-                    for (double j:AlcoholPercentage){
-                        bacLevel = (i*j/100*5.14)/(50* 0.66);
-                    }
-                }
+                rate = 0.66;
             }
-            else if (checked==R.id.male){
-                for(Integer i:drinkList){
-                    for (Double j:AlcoholPercentage){
-                        bacLevel += (i*j/100*5.14)/(60* 0.73);
-                    }
-                }
+            else {
+                rate = 0.73;
             }
+            double a=0.0;
+                for (int i=0; i<alcoholPercentage.size();i++) {
+                    a += drinkList.get(i) * alcoholPercentage.get(i) / 100;
+                }
+            bacLevel = a*5.14/(150* rate);
+
+
             TextView bac = findViewById(R.id.bacOUT);
             bac.setText(String.format("%.3f",bacLevel));
 
@@ -161,11 +170,13 @@ public class MainActivity extends AppCompatActivity {
 
     });
 
-    Button reset = findViewById(R.id.reset);
+    reset = findViewById(R.id.reset);
     reset.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             TextView numberDrinks = findViewById(R.id.drinkOut);
+            drinkList.clear();
+            alcoholPercentage.clear();
             numberDrinks.setText("0");
             TextView bac = findViewById(R.id.bacOUT);
             bac.setText("0.0000");
