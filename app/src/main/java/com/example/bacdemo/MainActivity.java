@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup gender, drinkSize;
     SeekBar alcohol;
     Resources res;
+    Drawable corner;
     String genderReturn = "";
 
     double bacLevel = 0.0;
@@ -131,118 +133,97 @@ public class MainActivity extends AppCompatActivity {
 
     addDrink = findViewById(R.id.addDrink);
 
-    //if(setInput.isClickable()){
 
     addDrink.setOnClickListener(new View.OnClickListener() {
 
-            @Override
+        @Override
 
             public void onClick(View view) {
 
-                /*int checked = gender.getCheckedRadioButtonId();
+            if ((weight.isEmpty()) || (gender.getCheckedRadioButtonId() == -1)) {
+                Toast toast2 = Toast.makeText(MainActivity.this, "Set weight and gender first.", Toast.LENGTH_SHORT);
+                toast2.setGravity(Gravity.CENTER, 0, 0);
+                toast2.show();
+            }
+            else {
+                //addDrink.setEnabled(true);
+                int numDrink = drinkSize.getCheckedRadioButtonId();
+                if (numDrink == R.id.oneOz) {
+                    drinkList.add(1);
+                } else if (numDrink == R.id.fiveOz) {
+                    drinkList.add(5);
+                } else {
+                    drinkList.add(12);
+                }
+
+
+                alcoholPercentage.add((double) alcohol.getProgress());
+
+                numberDrinks = findViewById(R.id.drinkOut);
+                numberDrinks.setText(String.valueOf(drinkList.size()));
+
+
+                int checked = gender.getCheckedRadioButtonId();
+                double consume = 0.0;
+
                 if (checked == R.id.female) {
-                    genderReturn = " (Female)";
                     genderRate = 0.66;
-                } else if (checked == R.id.male) {
-                    genderReturn = " (Male)";
+                } else {
                     genderRate = 0.73;
                 }
 
-                 */
-
-
-               // weightIn = findViewById(R.id.weightInput);
-               // weight = weightIn.getText().toString();
-
-                if ((weight.isEmpty()) || (gender.getCheckedRadioButtonId() == -1)) {
-                    Toast toast2 = Toast.makeText(MainActivity.this, "Set weight and gender first.", Toast.LENGTH_SHORT);
-                    toast2.setGravity(Gravity.CENTER, 0, 0);
-                    toast2.show();
+                //BAC Calculation
+                for (int i = 0; i < drinkList.size(); i++) {
+                    consume += drinkList.get(i) * alcoholPercentage.get(i) / 100;
                 }
-                try {
+                bacLevel = consume * BAC_INDEX / (Double.parseDouble(weight) * genderRate);
 
-                    int numDrink = drinkSize.getCheckedRadioButtonId();
-                    if (numDrink == R.id.oneOz) {
-                        drinkList.add(1);
-                    } else if (numDrink == R.id.fiveOz) {
-                        drinkList.add(5);
-                    } else {
-                        drinkList.add(12);
-                    }
 
-                    alcoholPercentage.add((double) alcohol.getProgress());
+                bac = findViewById(R.id.bacOUT);
+                bac.setText(String.format("%.3f", bacLevel));
 
-                    numberDrinks = findViewById(R.id.drinkOut);
-                    numberDrinks.setText(String.valueOf(drinkList.size()));
+                status = findViewById(R.id.statusLvl);
 
 
 
-                    int gchecked = gender.getCheckedRadioButtonId();
-                    double consume = 0.0;
-
-                    if (gchecked == R.id.female) {
-                        genderRate = 0.66;
-                    } else {
-                        genderRate = 0.73;
-                    }
+                res = getResources();
+                int color1 = res.getColor(red);
+                int color2 = res.getColor(orange);
+                int color3 = res.getColor(green);
 
 
-                    //BAC Calculation
-                    //double consume = 0.0;
-                    for (int i = 0; i < drinkList.size(); i++) {
-                        consume += drinkList.get(i) * alcoholPercentage.get(i) / 100;
-                    }
-                    bacLevel = consume * BAC_INDEX / (Double.parseDouble(weight) * genderRate);
+                if (bacLevel >= 0.25) {
+                    addDrink.setEnabled(false);
+                    status.setText("Over the limit!");
+                    status.setBackgroundColor(color1);
+                    Toast toast = Toast.makeText(MainActivity.this, "No more drinks for you.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
 
-
-                    bac = findViewById(R.id.bacOUT);
-                    bac.setText(String.format("%.3f", bacLevel));
-
-                    status = findViewById(R.id.statusLvl);
-
-
-                    res = getResources();
-                    int color1 = res.getColor(red);
-                    int color2 = res.getColor(orange);
-                    int color3 = res.getColor(green);
-
-                    if (bacLevel >= 0.25) {
-                        addDrink.setEnabled(false);
-                        status.setText("Over the limit!");
-                        status.setBackgroundColor(color1);
-                        Toast toast = Toast.makeText(MainActivity.this, "No more drinks for you.", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-
-                    } else if (bacLevel > 0.2) {
-                        status.setText("Over the limit!");
-                        status.setBackgroundColor(color1);
-                    } else if (bacLevel > 0.08) {
-                        status.setText("Be careful.");
-                        status.setBackgroundColor(color2);
-                    } else {
-                        status.setText("You're safe");
-                        status.setBackgroundColor(color3);
-                    }
-
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                } catch (Resources.NotFoundException e) {
-                    e.printStackTrace();
+                } else if (bacLevel > 0.2) {
+                    status.setText("Over the limit!");
+                    status.setBackgroundColor(color1);
+                } else if (bacLevel > 0.08) {
+                    status.setText("Be careful.");
+                    status.setBackgroundColor(color2);
+                } else {
+                    status.setText("You're safe");
+                    status.setBackgroundColor(color3);
                 }
             }
 
+
+            }
+
+
         });
 
-
-    //}
     /*
-    else{
-        Toast toast2 = Toast.makeText(MainActivity.this,"Set weight and gender first.",Toast.LENGTH_LONG);
-        toast2.setGravity(Gravity.CENTER, 0, 0);
-        toast2.show();
-    }150
+    Drawable mDrawable = ContextCompat.getDrawable(mActivity, R.drawable.rounded_corner);
+    mDrawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(mActivity, R.color.honeycombish_blue), PorterDuff.Mode.SRC_IN));
+    incident_icon.setBackground(mDrawable);
      */
+
 
     reset = findViewById(R.id.reset);
     reset.setOnClickListener(new View.OnClickListener() {
