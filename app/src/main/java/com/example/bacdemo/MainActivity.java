@@ -75,14 +75,21 @@ public class MainActivity extends AppCompatActivity {
                 weightGender = findViewById(R.id.weightGender);
                 weightGender.setText(weight + "lbs".concat(genderReturn));
 
+                if(weightIn.getText().length()==0){
+                    weightGender.setText("");
+                }
+
+
+
                 weightIn.getText().clear();
                 weightIn.setHint("");
+
 
                 drink = findViewById(R.id.drinkOut);
                 drink.setText("0");
                 bac = findViewById(R.id.bacOUT);
                 drinkList.clear();
-                bac.setText("0.000");
+                bac.setText("0.0000");
 
                 alcoholPercentage.clear();
 
